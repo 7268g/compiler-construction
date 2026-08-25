@@ -1,9 +1,11 @@
 %{
 #include<stdio.h>
+#include<stdlib.h>
+int yylex();
+int yyerror(char*s);
 %}
 
 %token NUM
-
 
 %%
 E:E'+'T|T;
@@ -12,14 +14,12 @@ F:'('E')'|NUM;
 %%
 
 int yyerror(char*s){
-	fprintf("Invalid Expression");
+	printf("Invalid Expression");
+	exit(0);
 }
-
 int main(){
 	printf("Enter an Expression: ");
 	yyparse();
-	printf("Valid Expression: ");
-	
+	printf("Valid Expression ");
 	return 0;
-
-}
+	}
