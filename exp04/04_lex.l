@@ -1,18 +1,25 @@
 %{
-#include"y.tab.h"
+#include<stdio.h>
+#include<stdlib.h>
+int yylex();
+int yyerror(char*s);
 %}
 
+%token NUM
+
 %%
-[0-9] + [return NUM;}
-[ \t];
-[\n] {return 0;}
-. {return yytext[0];}
+E:E'+'T|T;
+T:T'*'F|F;
+F:'('E')'|NUM;
 %%
 
-int yywrap(){
-	return 1;
+int yyerror(char*s){
+	printf("Invalid Expression");
+	exit(0);
 }
-
-
-
-
+int main(){
+	printf("Enter an Expression: ");
+	yyparse();
+	printf("Valid Expression ");
+	return 0;
+	}
